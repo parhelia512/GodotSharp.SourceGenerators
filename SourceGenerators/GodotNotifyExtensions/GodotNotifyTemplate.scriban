@@ -85,7 +85,7 @@ partial class {{ClassName}}
 {{~ end ~}}
 
             OnDataChanging();
-            _value = value;
+            _value = value!;
             OnDataChanged();
 
             void OnDataChanging()
