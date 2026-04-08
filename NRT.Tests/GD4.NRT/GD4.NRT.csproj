@@ -1,6 +1,7 @@
 ﻿<Project Sdk="Godot.NET.Sdk/4.6.1">
   <PropertyGroup>
     <Nullable>enable</Nullable>
+    <LangVersion>default</LangVersion>
     <TargetFramework>net8.0</TargetFramework>
     <EnableDynamicLoading>true</EnableDynamicLoading>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
@@ -10,6 +11,6 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="FluentAssertions" Version="[7.2.0]" />
-    <PackageReference Include="GodotSharp.SourceGenerators" Version="2.7.0-260331-1357.Release" />
+    <PackageReference Include="GodotSharp.SourceGenerators" Version="2.7.0-260407-1849.Release" />
   </ItemGroup>
 </Project>

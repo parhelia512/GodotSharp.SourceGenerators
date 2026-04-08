@@ -9,16 +9,19 @@ public partial class Main : Node
     [GodotOverride]
     private void OnReady()
     {
+        var DFLT = TestWithNonNullableNRT.DFLT;
+        var VALUE = new CapsuleShape2D();
+
         // Setup
         var nullableWithNull = TestWithNullableNRT.Instantiate();
-        var nullableWithNotNull = TestWithNullableNRT.Instantiate("not null", "not null");
+        var nullableWithNotNull = TestWithNullableNRT.Instantiate(VALUE, VALUE);
         var nonNullableWithEmpty = TestWithNonNullableNRT.Instantiate(); // (should not compile with null/default)
-        var nonNullableWithNotEmpty = TestWithNonNullableNRT.Instantiate("not empty", "not empty");
+        var nonNullableWithNotEmpty = TestWithNonNullableNRT.Instantiate(VALUE, VALUE);
 
         var newNullableWithNull = TestWithNullableNRT.New();
-        var newNullableWithNotNull = TestWithNullableNRT.New("not null", "not null");
+        var newNullableWithNotNull = TestWithNullableNRT.New(VALUE, VALUE);
         var newNonNullableWithEmpty = TestWithNonNullableNRT.New(); // (should not compile with null/default)
-        var newNonNullableWithNotEmpty = TestWithNonNullableNRT.New("not empty", "not empty");
+        var newNonNullableWithNotEmpty = TestWithNonNullableNRT.New(VALUE, VALUE);
 
         TestNew();
         TestNotify();
@@ -44,70 +47,70 @@ public partial class Main : Node
         {
             newNullableWithNull.InstantiateValue1.Should().Be(null);
             newNullableWithNull.InstantiateValue2.Should().Be(default);
-            newNullableWithNotNull.InstantiateValue1.Should().Be("not null");
-            newNullableWithNotNull.InstantiateValue2.Should().Be("not null");
-            newNonNullableWithEmpty.InstantiateValue1.Should().Be(string.Empty);
-            newNonNullableWithEmpty.InstantiateValue2.Should().Be(default!);
-            newNonNullableWithNotEmpty.InstantiateValue1.Should().Be("not empty");
-            newNonNullableWithNotEmpty.InstantiateValue2.Should().Be("not empty");
+            newNullableWithNotNull.InstantiateValue1.Should().Be(VALUE);
+            newNullableWithNotNull.InstantiateValue2.Should().Be(VALUE);
+            newNonNullableWithEmpty.InstantiateValue1.Should().Be(DFLT);
+            newNonNullableWithEmpty.InstantiateValue2.Should().Be(DFLT);
+            newNonNullableWithNotEmpty.InstantiateValue1.Should().Be(VALUE);
+            newNonNullableWithNotEmpty.InstantiateValue2.Should().Be(VALUE);
         }
 
         void TestInstantiate()
         {
             nullableWithNull.InstantiateValue1.Should().Be(null);
             nullableWithNull.InstantiateValue2.Should().Be(default);
-            nullableWithNotNull.InstantiateValue1.Should().Be("not null");
-            nullableWithNotNull.InstantiateValue2.Should().Be("not null");
-            nonNullableWithEmpty.InstantiateValue1.Should().Be(string.Empty);
-            nonNullableWithEmpty.InstantiateValue2.Should().Be(default!);
-            nonNullableWithNotEmpty.InstantiateValue1.Should().Be("not empty");
-            nonNullableWithNotEmpty.InstantiateValue2.Should().Be("not empty");
+            nullableWithNotNull.InstantiateValue1.Should().Be(VALUE);
+            nullableWithNotNull.InstantiateValue2.Should().Be(VALUE);
+            nonNullableWithEmpty.InstantiateValue1.Should().Be(DFLT);
+            nonNullableWithEmpty.InstantiateValue2.Should().Be(DFLT);
+            nonNullableWithNotEmpty.InstantiateValue1.Should().Be(VALUE);
+            nonNullableWithNotEmpty.InstantiateValue2.Should().Be(VALUE);
         }
 
         void TestNotify()
         {
             nullableWithNull.NotifyTest.Should().Be(null);
             nullableWithNotNull.NotifyTest.Should().Be(null);
-            nonNullableWithEmpty.NotifyTest.Should().Be(string.Empty);
-            nonNullableWithNotEmpty.NotifyTest.Should().Be(string.Empty);
+            nonNullableWithEmpty.NotifyTest.Should().Be(DFLT);
+            nonNullableWithNotEmpty.NotifyTest.Should().Be(DFLT);
 
             nullableWithNull.NotifyTest = null;
-            nullableWithNotNull.NotifyTest = "not null";
-            nonNullableWithEmpty.NotifyTest = string.Empty; // (should not compile with null)
-            nonNullableWithNotEmpty.NotifyTest = "not empty";
+            nullableWithNotNull.NotifyTest = VALUE;
+            nonNullableWithEmpty.NotifyTest = DFLT;
+            nonNullableWithNotEmpty.NotifyTest = VALUE;
 
             nullableWithNull.NotifyTest.Should().Be(null);
-            nullableWithNotNull.NotifyTest.Should().Be("not null");
-            nonNullableWithEmpty.NotifyTest.Should().Be(string.Empty);
-            nonNullableWithNotEmpty.NotifyTest.Should().Be("not empty");
+            nullableWithNotNull.NotifyTest.Should().Be(VALUE);
+            nonNullableWithEmpty.NotifyTest.Should().Be(DFLT);
+            nonNullableWithNotEmpty.NotifyTest.Should().Be(VALUE);
         }
 
         void TestNotifyWithAction()
         {
             nullableWithNull.NotifyActionValue.Should().Be(null);
             nullableWithNotNull.NotifyActionValue.Should().Be(null);
-            nonNullableWithEmpty.NotifyActionValue.Should().Be(string.Empty);
-            nonNullableWithNotEmpty.NotifyActionValue.Should().Be(string.Empty);
+            nonNullableWithEmpty.NotifyActionValue.Should().Be(DFLT);
+            nonNullableWithNotEmpty.NotifyActionValue.Should().Be(DFLT);
 
             nullableWithNull.NotifyTestWithAction.Should().Be(null);
             nullableWithNotNull.NotifyTestWithAction.Should().Be(null);
-            nonNullableWithEmpty.NotifyTestWithAction.Should().Be(string.Empty);
-            nonNullableWithNotEmpty.NotifyTestWithAction.Should().Be(string.Empty);
+            nonNullableWithEmpty.NotifyTestWithAction.Should().Be(DFLT);
+            nonNullableWithNotEmpty.NotifyTestWithAction.Should().Be(DFLT);
 
             nullableWithNull.NotifyTestWithAction = null;
-            nullableWithNotNull.NotifyTestWithAction = "not null";
-            nonNullableWithEmpty.NotifyTestWithAction = string.Empty; // (should not compile with null)
-            nonNullableWithNotEmpty.NotifyTestWithAction = "not empty";
+            nullableWithNotNull.NotifyTestWithAction = VALUE;
+            nonNullableWithEmpty.NotifyTestWithAction = DFLT;
+            nonNullableWithNotEmpty.NotifyTestWithAction = VALUE;
 
             nullableWithNull.NotifyTestWithAction.Should().Be(null);
-            nullableWithNotNull.NotifyTestWithAction.Should().Be("not null");
-            nonNullableWithEmpty.NotifyTestWithAction.Should().Be(string.Empty);
-            nonNullableWithNotEmpty.NotifyTestWithAction.Should().Be("not empty");
+            nullableWithNotNull.NotifyTestWithAction.Should().Be(VALUE);
+            nonNullableWithEmpty.NotifyTestWithAction.Should().Be(DFLT);
+            nonNullableWithNotEmpty.NotifyTestWithAction.Should().Be(VALUE);
 
             nullableWithNull.NotifyActionValue.Should().Be(null);
-            nullableWithNotNull.NotifyActionValue.Should().Be("not null");
-            nonNullableWithEmpty.NotifyActionValue.Should().Be(string.Empty);
-            nonNullableWithNotEmpty.NotifyActionValue.Should().Be("not empty");
+            nullableWithNotNull.NotifyActionValue.Should().Be(VALUE);
+            nonNullableWithEmpty.NotifyActionValue.Should().Be(DFLT);
+            nonNullableWithNotEmpty.NotifyActionValue.Should().Be(VALUE);
         }
     }
 
